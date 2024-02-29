@@ -41,7 +41,7 @@ class _HomePageState extends State<HomePage> {
                       elevation: 5.0,
                       borderRadius: BorderRadius.circular(10),
                       child: Container(
-                        padding: EdgeInsets.all(20),
+                        padding: EdgeInsets.all(10),
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                             color: Colors.white,
@@ -53,22 +53,22 @@ class _HomePageState extends State<HomePage> {
                               children: [
                                 Text("Name: " + ds["Name"],
                                     style: TextStyle(
-                                        fontSize: 20,
+                                        fontSize: 18,
                                         color: Colors.purple.shade400,
                                         fontWeight: FontWeight.bold)),
                                 Text(
                                   "Age:" + ds["Age"],
                                   style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                  ),
                                 ),
                                 Text(
                                   "Location: " + ds["Location"],
                                   style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
+                                    fontSize: 16,
+                                    color: Colors.black,
+                                  ),
                                 ),
                               ],
                             ),

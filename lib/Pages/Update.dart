@@ -115,6 +115,22 @@ class _EmployeeUpdateState extends State<EmployeeUpdate> {
             ),
             ElevatedButton(
                 onPressed: () async {
+                  if (namecontroller.text.isEmpty) {
+                    Fluttertoast.showToast(
+                        msg: 'Enter Name', gravity: ToastGravity.TOP);
+                    return;
+                  }
+                  if (agecontroller.text.isEmpty) {
+                    Fluttertoast.showToast(
+                        msg: 'Enter Age', gravity: ToastGravity.TOP);
+                    return;
+                  }
+                  if (locationcontroller.text.isEmpty) {
+                    Fluttertoast.showToast(
+                        msg: 'Enter Location', gravity: ToastGravity.TOP);
+                    return;
+                  }
+
                   String id = randomAlphaNumeric(10);
                   Map<String, dynamic> updateInfo = {
                     "Name": namecontroller.text,
@@ -127,11 +143,11 @@ class _EmployeeUpdateState extends State<EmployeeUpdate> {
                       .then((value) {
                     Navigator.of(context).pop();
                     Fluttertoast.showToast(
-                        msg: "Employee Dtatails has been added successfully",
+                        msg: "Employee Dtatails has been Updated successfully",
                         toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.CENTER,
+                        gravity: ToastGravity.TOP,
                         timeInSecForIosWeb: 1,
-                        backgroundColor: Colors.red,
+                        backgroundColor: Colors.green,
                         textColor: Colors.white,
                         fontSize: 16.0);
                   });
