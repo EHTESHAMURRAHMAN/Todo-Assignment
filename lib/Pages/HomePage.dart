@@ -39,46 +39,81 @@ class _HomePageState extends State<HomePage> {
                     margin: EdgeInsets.only(bottom: 10),
                     child: Material(
                       elevation: 5.0,
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(20),
                       child: Container(
-                        padding: EdgeInsets.all(10),
+                        padding: EdgeInsets.all(15),
                         width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                             color: Colors.white,
-                            borderRadius: BorderRadius.circular(10)),
-                        child: Row(
+                            borderRadius: BorderRadius.circular(20)),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
+                            Row(
                               children: [
-                                Text("Name: " + ds["Name"],
+                                RichText(
+                                  text: TextSpan(
+                                    text: "Task: ",
                                     style: TextStyle(
-                                        fontSize: 18,
+                                        fontSize: 17,
                                         color: Colors.purple.shade400,
-                                        fontWeight: FontWeight.bold)),
-                                Text(
-                                  "Age:" + ds["Age"],
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black,
+                                        fontWeight: FontWeight.w500),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                          text: ds["Name"],
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w500)),
+                                    ],
                                   ),
                                 ),
-                                Text(
-                                  "Location: " + ds["Location"],
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    color: Colors.black,
-                                  ),
-                                ),
+                                Spacer(),
+                                GestureDetector(
+                                    onTap: () {
+                                      editEmployeeDetail(ds["Id"], ds["Name"],
+                                          ds["Age"], ds["Location"]);
+                                    },
+                                    child:
+                                        Icon(Icons.edit, color: Colors.purple))
                               ],
                             ),
-                            Spacer(),
-                            GestureDetector(
-                                onTap: () {
-                                  editEmployeeDetail(ds["Id"], ds["Name"],
-                                      ds["Age"], ds["Location"]);
-                                },
-                                child: Icon(Icons.edit, color: Colors.purple))
+                            SizedBox(height: 4),
+                            RichText(
+                              text: TextSpan(
+                                text: "Date: ",
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    color: Colors.purple.shade400,
+                                    fontWeight: FontWeight.w500),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text: ds["Age"],
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w400)),
+                                ],
+                              ),
+                            ),
+                            SizedBox(height: 4),
+                            RichText(
+                              text: TextSpan(
+                                text: "Description: ",
+                                style: TextStyle(
+                                    fontSize: 17,
+                                    color: Colors.purple.shade400,
+                                    fontWeight: FontWeight.w500),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text: ds["Location"],
+                                      style: TextStyle(
+                                          fontSize: 16,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w400)),
+                                ],
+                              ),
+                            ),
                           ],
                         ),
                       ),
@@ -124,9 +159,32 @@ class _HomePageState extends State<HomePage> {
         ),
       ),
       body: Container(
-        margin: EdgeInsets.only(left: 20, right: 20, top: 30),
+        margin: EdgeInsets.only(left: 20, right: 20, top: 10),
         child: Column(
-          children: [Expanded(child: allEmployeeDetails())],
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  "TODO",
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w300),
+                ),
+                SizedBox(width: 5),
+                Text(
+                  "List",
+                  style: TextStyle(
+                      color: Colors.purple.shade300,
+                      fontSize: 19,
+                      fontWeight: FontWeight.bold),
+                )
+              ],
+            ),
+            SizedBox(height: 10),
+            Expanded(child: allEmployeeDetails())
+          ],
         ),
       ),
     );
