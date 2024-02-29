@@ -1,9 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:crud_opration/Pages/Update.dart';
 import 'package:crud_opration/Pages/employee.dart';
 import 'package:crud_opration/service/database.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:share_plus/share_plus.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -75,7 +75,8 @@ class _HomePageState extends State<HomePage> {
                             Spacer(),
                             GestureDetector(
                                 onTap: () {
-                                  EditEmployeeDetail(ds["Id"]);
+                                  editEmployeeDetail(ds["Id"], ds["Name"],
+                                      ds["Age"], ds["Location"]);
                                 },
                                 child: Icon(Icons.edit, color: Colors.purple))
                           ],
@@ -105,7 +106,7 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "CRUD",
+              "TODO",
               style: TextStyle(
                   color: Colors.black,
                   fontSize: 26,
@@ -113,7 +114,7 @@ class _HomePageState extends State<HomePage> {
             ),
             SizedBox(width: 5),
             Text(
-              "Operation",
+              "Assignment",
               style: TextStyle(
                   color: Colors.purple.shade300,
                   fontSize: 19,
@@ -131,7 +132,7 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  Future EditEmployeeDetail(String id) => showDialog(
+  Future editEmployeeDetail(String id, name, age, location) => showDialog(
         context: context,
         builder: (context) {
           return Dialog(
@@ -147,7 +148,7 @@ class _HomePageState extends State<HomePage> {
                       Icon(Icons.cancel, color: Colors.transparent),
                       Spacer(),
                       Text(
-                        "CRUD",
+                        "TODO",
                         style: TextStyle(
                             color: Colors.black,
                             fontSize: 26,
@@ -155,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                       ),
                       SizedBox(width: 5),
                       Text(
-                        "Operation",
+                        "Assignment",
                         style: TextStyle(
                             color: Colors.purple.shade300,
                             fontSize: 19,
@@ -174,7 +175,10 @@ class _HomePageState extends State<HomePage> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () async {
+                          Navigator.of(context).pop();
+                          await DatabaseMethods().deleteEmployeeDetails(id);
+                        },
                         child: Column(
                           children: [
                             Icon(Icons.delete, color: Colors.red),
@@ -185,7 +189,18 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => EmployeeUpdate(
+                                        name: name,
+                                        location: location,
+                                        age: age,
+                                        id: id,
+                                      )));
+                        },
                         child: Column(
                           children: [
                             Icon(Icons.edit, color: Colors.purple.shade400),
@@ -197,7 +212,9 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          Share.share("$name\n$age\n$location");
+                        },
                         child: Column(
                           children: [
                             Icon(Icons.share),
